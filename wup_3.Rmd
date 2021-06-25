@@ -1,7 +1,7 @@
 ---
 title: "Alcohol vs Seat choice"
-author: "Your Name"
-date: "Fall 2020"
+author: "Desiree De La Rosa"
+date: "Summer 2020"
 output: html_document
 ---
 
@@ -20,24 +20,58 @@ davisdata <- read.csv(file="UCDavis.csv")
 ## Now with ggplot - first select the basic data
 
 ```{r}
-basicCN <- ggplot(davisdata,aes(y=alcohol,x=Seat))
+basicCN <- ggplot(davisdata,aes(y=alcohol,x=seat))
 ```
+
 ## Now add in boxplot
 
 ```{r}
+boxplot(momheight~Sex,data=davisdata)
+```
+
+  
+### get fancy  
+
+
+```{r}
+basicCN <- ggplot(davisdata,aes(x=Seat,y=alcohol))
+
 basicCN + geom_boxplot()
 ```
   
-  
-### get fancy  
+  It appears the people in the back are different from those in the front and middle, we may be able to reject the null hypothesis. Based on this boxplot there is a clear difference between the back and the front and middle.
 
 ```{r}
 basicCN + geom_boxplot(notch=TRUE,outlier.color = "red") + stat_boxplot(geom ='errorbar') + labs(title="Fancy notch boxplot \n with 2 lines")
 ```
 
+Based on the box plot it appears that the people who sit in the back row drinkng significantly more than the people sitting in the front and middle seats. The people in the middle drink slightly more than the people sitting in the front but still not nearly as much as the people in the back. The mean if the back is a big gap from the mean in the front and middle. 
+
 ## Numerical Summarys 
 
+
+```{r}
+favstats(alcohol~Seat,data=ucdavis1)
+```
+
+The mean for the back seats are significantly higher than the mean of the front and middle seats. The back seats mean is almost three times greater than the middle seats mean.
+
 ## Inferential Tests
+
+
+```{r}
+model1 <- aov(alcohol~Seat,data=davisdata)
+summary.aov(model1)
+```
+
+Based on the inferential we can reject the hypothesis but will get further clarification of the information.
+
+
+```{r}
+plot(TukeyHSD(model1))
+```
+
+Looking at the tukey plot we can see that the front is different from the back, and the middle is different from the back as well. Theres is no difference between the middle and front.
 
 ## Conclusions
 
