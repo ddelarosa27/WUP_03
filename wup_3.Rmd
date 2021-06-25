@@ -75,4 +75,4 @@ Looking at the tukey plot we can see that the front is different from the back, 
 
 ## Conclusions
 
-
+We have to use anova instead of t-test because the categorical variable has more than two levels.The anova showed the difference in the alcohol consumption based on the seat location.The Tukey HSD showed that there was no difference between the front and middle, but there was a big difference in the back row.
